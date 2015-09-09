@@ -46,13 +46,6 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
-@app.route('/')
-def home():
-    cur = g.db.execute('select * from user')
-    results = []
-    #return render_template('home.html', entries = entries)
-    return json.dumps([dict(ix) for ix in cur.fetchall()])
-
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     error = None
