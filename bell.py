@@ -5,6 +5,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
 import json
 from contextlib import closing
 
+import views
 
 app = Flask(__name__)
 app.config.update(dict(
@@ -16,6 +17,7 @@ app.config.update(dict(
 ))
 
 app.config.from_object(__name__)
+views.register_views(app)
 
 def connect_db():
     rv =sqlite3.connect(app.config['DATABASE'])
