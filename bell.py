@@ -46,17 +46,6 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if valid_login(request.form['user_id'], request.form['user_name']):
-            return log_the_user_in(request.form['user_name'])
-        else:
-            error = 'Invalid username/id'
-    return "tmp"
-
-
 #GET communication test
 @app.route('/add_GET', methods=['GET'])
 def add_GET():

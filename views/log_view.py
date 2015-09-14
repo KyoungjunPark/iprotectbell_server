@@ -7,4 +7,5 @@ log_blueprint = Blueprint('log', __name__)
 
 @log_blueprint.route('/log', methods=['GET'])
 def log():
-    return 'log'
+    cur = g.db.execute('select * from log')
+    return json.dumps([dict(ix) for ix in cur.fetchall()])
