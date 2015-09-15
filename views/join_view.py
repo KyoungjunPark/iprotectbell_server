@@ -7,7 +7,9 @@ join_blueprint = Blueprint('join', __name__)
 @join_blueprint.route('/join', methods=['POST'])
 def join():
     error_code = 200
-    if request.mothod == 'POST':
+    error_message = "Default"
+
+    if request.method == 'POST':
         if valid_serialNum(request.form['serialNum']):
             if valid_id(request.form['user_id']):
                 cur = g.db.execute('insert into user(user_id, user_password, bell_id) values(?,?,?)'
@@ -21,7 +23,7 @@ def join():
             error_message = "This serial number is incorrect or already used by other user"
     else:
         error_code = 404
-        error_message = "You are idiot"
+        error_message = "You must send POST communication"
 
     if error_code == 200:
         return "ok"
@@ -41,9 +43,9 @@ def valid_serialNum(serialNum):
         result = cur.fetchone()
 
         if result[0] == 0:
-            return False
-        else:
             return True
+        else:
+            return False
 
 def valid_id(user_id):
     cur = g.db.execute('select count(*) from user where user_id = ?',[user_id])
@@ -51,8 +53,8 @@ def valid_id(user_id):
     result = cur.fetchone()
 
     if result[0] == 0:
-        return False
-    else:
         return True
+    else:
+        return False
 
 
