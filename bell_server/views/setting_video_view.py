@@ -4,10 +4,12 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session, g
 import os
 import sys
+from ..auth.commons import login_required
 
 setting_video_blueprint = Blueprint('setting_video', __name__)
 
 @setting_video_blueprint.route('/setting_video', methods=['GET','POST'])
+@login_required
 def log():
     if request.method == 'POST':
         e1 = os.system('sudo pkill -9 uv4l')

@@ -14,7 +14,9 @@ def log():
     g.db.commit()
     rv = cur.fetchall()
     cur.close()
-
+    
+    #Log
+    print(request.headers.get('token'))
     result = rv[0] if rv else None
 
     if result is None:

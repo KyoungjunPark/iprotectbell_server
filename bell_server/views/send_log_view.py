@@ -12,6 +12,7 @@ def send_log():
     if request.method == 'POST':
         cur = g.db.execute('select user_id from token where user_token = ?'
                 ,[request.headers.get('token')])
+        #log
         print(request.headers.get('token'))
 
         g.db.commit()
